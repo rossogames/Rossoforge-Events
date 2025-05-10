@@ -3,39 +3,31 @@ using UnityEngine;
 
 namespace RossoForge.Events.Bus
 {
-    public class EventBus<T> : ScriptableObject where T : struct, IEvent
+    public class EventBus<T> where T : struct, IEvent
     {
-        private readonly List<IEventListener<T>> eventListeners = new();
+        private readonly HashSet<IEventListener<T>> eventListeners = new();
 
 #if UNITY_EDITOR
-        //[ReadOnly]
-        public List<string> ActiveListeners = new();
+        public List<string> ActiveListeners { get; private set; } = new();
 #endif 
-        public T Value { get; set; }
-
-        //[Button("Raise Event")]
         public void Raise(T value)
         {
-            this.Value = value;
+#if UNITY_EDITOR
+            Debug.Log($"Event Raised: {typeof(T).Name}");
+#endif
 
             if (eventListeners.Count == 0)
                 return;
 
-            var listeners = eventListeners.ToArray(); // clone to avoid error when unregist listener
-
-            for (int i = 0; i < listeners.Length; i++)
+            var listeners = new HashSet<IEventListener<T>>(eventListeners); // clone to avoid error when unregist listener
+            foreach (var listener in listeners)
             {
-                var listener = listeners[i];
-                if (listener == null)
-                    UnregisterListener(listener);
-                else
-                    listener.OnEventInvoked(value);
+                listener.OnEventInvoked(value);
             }
         }
         public void RegisterListener(IEventListener<T> listener)
         {
-            if (!eventListeners.Contains(listener))
-                eventListeners.Add(listener);
+            eventListeners.Add(listener);
 
 #if UNITY_EDITOR
             RefreshListenerTypes();
@@ -44,8 +36,7 @@ namespace RossoForge.Events.Bus
 
         public void UnregisterListener(IEventListener<T> listener)
         {
-            if (eventListeners.Contains(listener))
-                eventListeners.Remove(listener);
+            eventListeners.Remove(listener);
 
 #if UNITY_EDITOR
             RefreshListenerTypes();
