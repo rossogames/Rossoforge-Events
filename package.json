@@ -1,0 +1,19 @@
+{
+  "name": "com.rossogames.rossoforge-events",
+  "version": "0.0.1",
+  "displayName": "RossoForge-Events",
+  "description": "",
+  "unity": "2025.0",
+  "author": {
+    "name": "Agustin Rosso",
+    "url": "https://www.linkedin.com/in/rossoagustin/"
+  },
+  "keywords": [
+    "event",
+    "events",
+    "rossogames",
+    "rossoforge"
+  ],
+  "samples": [
+  ]
+}
