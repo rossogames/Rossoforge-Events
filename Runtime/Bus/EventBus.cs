@@ -7,9 +7,6 @@ namespace RossoForge.Events.Bus
     {
         private readonly HashSet<IEventListener<T>> eventListeners = new();
 
-#if UNITY_EDITOR
-        public List<string> ActiveListeners { get; private set; } = new();
-#endif 
         public void Raise(T value)
         {
 #if UNITY_EDITOR
@@ -28,19 +25,11 @@ namespace RossoForge.Events.Bus
         public void RegisterListener(IEventListener<T> listener)
         {
             eventListeners.Add(listener);
-
-#if UNITY_EDITOR
-            RefreshListenerTypes();
-#endif
         }
 
         public void UnregisterListener(IEventListener<T> listener)
         {
             eventListeners.Remove(listener);
-
-#if UNITY_EDITOR
-            RefreshListenerTypes();
-#endif
         }
 
 #if UNITY_EDITOR
@@ -48,17 +37,6 @@ namespace RossoForge.Events.Bus
         {
             foreach (var listener in eventListeners)
                 Debug.LogWarning($"The listener {listener.GetType().Name} must be removed from the event bus {typeof(T)}");
-        }
-        private void RefreshListenerTypes()
-        {
-            ActiveListeners.Clear();
-            foreach (var listener in eventListeners)
-            {
-                if (listener == null)
-                    Debug.LogError($"Listener {typeof(T)} is null");
-                else
-                    ActiveListeners.Add(listener.ToString());
-            }
         }
 #endif
     }
