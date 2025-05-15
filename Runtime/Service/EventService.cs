@@ -2,7 +2,6 @@ using RossoForge.Events.Bus;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace RossoForge.Events.Service
 {
@@ -10,10 +9,10 @@ namespace RossoForge.Events.Service
     {
         private readonly Dictionary<Type, object> _busCollection = new();
 
-        public void RegisterListener<T>(IEventListener<T> listener) where T : struct, IEvent => GetBus<T>().RegisterListener(listener);
-        public void UnregisterListener<T>(IEventListener<T> listener) where T : struct, IEvent => GetBus<T>().UnregisterListener(listener);
-        public void Raise<T>() where T : struct, IEvent => Raise<T>(default);
-        public void Raise<T>(T eventArg) where T : struct, IEvent => GetBus<T>().Raise(eventArg);
+        public void RegisterListener<T>(IEventListener<T> listener) where T : IEvent => GetBus<T>().RegisterListener(listener);
+        public void UnregisterListener<T>(IEventListener<T> listener) where T : IEvent => GetBus<T>().UnregisterListener(listener);
+        public void Raise<T>() where T : IEvent => Raise<T>(default);
+        public void Raise<T>(T eventArg) where T : IEvent => GetBus<T>().Raise(eventArg);
 
         public async void Dispose()
         {
@@ -22,7 +21,7 @@ namespace RossoForge.Events.Service
 #endif
         }
 
-        private EventBus<T> GetBus<T>() where T : struct, IEvent 
+        private EventBus<T> GetBus<T>() where T : IEvent
         {
             if (!_busCollection.TryGetValue(typeof(T), out var bus))
             {
@@ -40,10 +39,8 @@ namespace RossoForge.Events.Service
             await Task.Delay(1000);
             foreach (var item in _busCollection)
             {
-                var eventBus = _busCollection[item.Key];
-                var checkFunction = eventBus.GetType().GetMethod("CheckListeners");
-
-                checkFunction.Invoke(eventBus, null);
+                var eventBus = _busCollection[item.Key] as IEventBus;
+                eventBus?.CheckListeners();
             }
         }
 #endif

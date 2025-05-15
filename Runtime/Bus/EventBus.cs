@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RossoForge.Events.Bus
 {
-    public class EventBus<T> where T : struct, IEvent
+    public class EventBus<T> : IEventBus where T : IEvent
     {
         private readonly HashSet<IEventListener<T>> eventListeners = new();
+        private readonly object _lock = new();
 
         public void Raise(T value)
         {
@@ -16,20 +18,38 @@ namespace RossoForge.Events.Bus
             if (eventListeners.Count == 0)
                 return;
 
-            var listeners = new HashSet<IEventListener<T>>(eventListeners); // clone to avoid error when unregist listener
-            foreach (var listener in listeners)
+            List<IEventListener<T>> listeners = null;
+            lock (_lock)
             {
-                listener.OnEventInvoked(value);
+                listeners = eventListeners.ToList();  // clone to avoid error when unregist listener
             }
+
+            foreach (var listener in listeners)
+                listener.OnEventInvoked(value);
         }
         public void RegisterListener(IEventListener<T> listener)
         {
-            eventListeners.Add(listener);
+            lock (_lock)
+            {
+                eventListeners.Add(listener);
+            }
         }
 
         public void UnregisterListener(IEventListener<T> listener)
         {
-            eventListeners.Remove(listener);
+            lock (_lock)
+            {
+                eventListeners.Remove(listener);
+            }
+        }
+
+        public void UnregisterAllListener()
+        {
+            lock (_lock)
+            {
+                foreach (var listener in eventListeners)
+                    eventListeners.Add(listener);
+            }
         }
 
 #if UNITY_EDITOR
