@@ -1,12 +1,15 @@
 {
   "name": "com.rossogames.rossoforge-events",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "displayName": "RossoForge-Events",
-  "description": "",
+  "description": "Decoupled event system based on generic interfaces and buses",
   "unity": "2025.0",
   "author": {
     "name": "Agustin Rosso",
     "url": "https://www.linkedin.com/in/rossoagustin/"
+  },
+  "dependencies": {
+    "com.rossogames.services": "https://github.com/rossogames/Rossoforge-Services.git#1.0.0"
   },
   "keywords": [
     "event",
@@ -15,5 +18,10 @@
     "rossoforge"
   ],
   "samples": [
+    {
+      "displayName": "Event service sample",
+      "description": "Example of how to define an event, implement a listener, register it, and raise the event using the EventService.",
+      "path": "Samples~/HudUpdateSample"
+    }
   ]
 }
