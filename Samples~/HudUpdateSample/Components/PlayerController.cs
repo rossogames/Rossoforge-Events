@@ -1,5 +1,5 @@
 using RossoForge.Events.Service;
-using RossoForge.Service.Locator;
+using RossoForge.Services.Locator;
 using UnityEngine;
 
 namespace RossoForge.Events.Samples.HpHud
