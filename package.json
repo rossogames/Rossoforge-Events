@@ -14,9 +14,6 @@
     "rossogames",
     "rossoforge"
   ],
-  "dependencies": {
-    "com.rossogames.rossoforge-services": "https://github.com/rossogames/Rossoforge-Services.git#v1.0.0"
-  },
   "samples": [
     {
       "displayName": "Event service sample",
