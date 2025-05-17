@@ -9,6 +9,9 @@
 
 **RossoForge - Events** is a lightweight and decoupled event system for Unity, built around generic interfaces and event buses. It allows different parts of your application to communicate through events without tight coupling or dependencies between components.
 
+The following dependencies must be installed
+* https://github.com/rossogames/Rossoforge-Services.git
+
 Watch the tutorial on [Pending]
 #
 ```csharp
