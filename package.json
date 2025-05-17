@@ -15,7 +15,7 @@
     "rossoforge"
   ],
   "dependencies": {
-    "com.rossogames.rossoforge-services": "https://github.com/rossogames/Rossoforge-Services.git#71cb3588f2815ac09420216e2e82358c92821072"
+    "com.rossogames.rossoforge-services": "https://github.com/rossogames/Rossoforge-Services.git#v1.0.0"
   },
   "samples": [
     {
