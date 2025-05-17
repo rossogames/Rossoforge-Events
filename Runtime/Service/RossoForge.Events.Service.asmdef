@@ -2,7 +2,7 @@
     "name": "RossoForge.Events.Service",
     "rootNamespace": "RossoForge.Events.Service",
     "references": [
-        "RossoForge.Service",
+        "RossoForge.Services",
         "RossoForge.Events.Bus"
     ],
     "includePlatforms": [],

@@ -8,9 +8,6 @@
     "name": "Agustin Rosso",
     "url": "https://www.linkedin.com/in/rossoagustin/"
   },
-  "dependencies": {
-    "com.rossogames.services": "https://github.com/rossogames/Rossoforge-Services.git"
-  },
   "keywords": [
     "event",
     "events",
