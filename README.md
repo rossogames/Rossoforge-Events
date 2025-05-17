@@ -7,7 +7,7 @@
   </tr>
 </table>
 
-**RossoForge - Events** Rossoforge-Events is a lightweight and decoupled event system for Unity, built around generic interfaces and event buses. It allows different parts of your application to communicate through events without tight coupling or dependencies between components.
+**RossoForge - Events** is a lightweight and decoupled event system for Unity, built around generic interfaces and event buses. It allows different parts of your application to communicate through events without tight coupling or dependencies between components.
 
 Watch the tutorial on [Pending]
 #
