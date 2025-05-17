@@ -9,7 +9,7 @@
     "url": "https://www.linkedin.com/in/rossoagustin/"
   },
   "dependencies": {
-    "com.rossogames.services": "https://github.com/rossogames/Rossoforge-Services.git#1.0.0"
+    "com.rossogames.services": "https://github.com/rossogames/Rossoforge-Services.git"
   },
   "keywords": [
     "event",
