@@ -1,13 +1,14 @@
 using RossoForge.Events.Bus;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RossoForge.Events.Service
 {
     public class EventService : IEventService, IDisposable
     {
-        private readonly Dictionary<Type, object> _busCollection = new();
+        private readonly Dictionary<Type, IEventBus> _busCollection = new();
 
         public void RegisterListener<T>(IEventListener<T> listener) where T : IEvent => GetBus<T>().RegisterListener(listener);
         public void UnregisterListener<T>(IEventListener<T> listener) where T : IEvent => GetBus<T>().UnregisterListener(listener);
@@ -20,6 +21,13 @@ namespace RossoForge.Events.Service
             await CheckListeners();
 #endif
         }
+
+#if UNITY_EDITOR
+        public IEventBus[] GetAllBuses()
+        {
+            return _busCollection.Values.ToArray();
+        }
+#endif
 
         private EventBus<T> GetBus<T>() where T : IEvent
         {

@@ -4,7 +4,8 @@
     "references": [
         "RossoForge.Services",
         "RossoForge.Services.Locator",
-        "RossoForge.Events.Service"
+        "RossoForge.Events.Service",
+        "RossoForge.Events.Bus"
     ],
     "includePlatforms": [
         "Editor"

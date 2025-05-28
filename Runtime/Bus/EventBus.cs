@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace RossoForge.Events.Bus
         private readonly HashSet<IEventListener<T>> eventListeners = new();
         private readonly object _lock = new();
 
+#if UNITY_EDITOR
+        private Type[] typesForViewer;
+#endif
         public void Raise(T value)
         {
 #if UNITY_EDITOR
@@ -32,6 +36,9 @@ namespace RossoForge.Events.Bus
             lock (_lock)
             {
                 eventListeners.Add(listener);
+#if UNITY_EDITOR
+                RefreshTypesForViewer();
+#endif
             }
         }
 
@@ -40,6 +47,9 @@ namespace RossoForge.Events.Bus
             lock (_lock)
             {
                 eventListeners.Remove(listener);
+#if UNITY_EDITOR
+                RefreshTypesForViewer();
+#endif
             }
         }
 
@@ -49,6 +59,10 @@ namespace RossoForge.Events.Bus
             {
                 foreach (var listener in eventListeners)
                     eventListeners.Add(listener);
+
+#if UNITY_EDITOR
+                RefreshTypesForViewer();
+#endif
             }
         }
 
@@ -57,6 +71,25 @@ namespace RossoForge.Events.Bus
         {
             foreach (var listener in eventListeners)
                 Debug.LogWarning($"The listener {listener.GetType().Name} must be removed from the event bus {typeof(T)}");
+        }
+
+        public Type[] GetListenersType()
+        {
+            return typesForViewer;
+        }
+
+        private void RefreshTypesForViewer()
+        {
+            typesForViewer = new Type[eventListeners.Count];
+
+            List<IEventListener<T>> listeners = null;
+            lock (_lock)
+            {
+                listeners = eventListeners.ToList();  // clone to avoid error when unregist listener
+            }
+
+            for (int i = 0; i < listeners.Count; i++)
+                typesForViewer[i] = listeners[i].GetType();
         }
 #endif
     }

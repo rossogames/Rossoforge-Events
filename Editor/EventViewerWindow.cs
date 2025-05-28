@@ -1,12 +1,18 @@
 using Codice.CM.Common.Update.Partial;
+using RossoForge.Events.Bus;
 using RossoForge.Events.Service;
 using RossoForge.Services.Locator;
+using System;
+using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 namespace RossoForge.Events.Editor
 {
     public class EventViewerWindow: EditorWindow
     {
+        private Vector2 _scrollPos;
+
         [MenuItem("RossoForge/Events/Viewer")]
         public static void ShowWindow()
         {
@@ -22,8 +28,17 @@ namespace RossoForge.Events.Editor
             if (!CheckEventService())
                 return;
 
-            //_eventService = ServiceLocator.Get<IEventService>();
             UnityEngine.Debug.LogWarning("TEST");
+
+            _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
+
+            var eventBuses = GetAllBuses();
+            //foreach (var busInfo in _eventService.GetAllBuses())
+            //{
+            //    DrawBus(busInfo);
+            //}
+
+            EditorGUILayout.EndScrollView();
         }
 
         private bool CheckPlayMode()
@@ -47,5 +62,30 @@ namespace RossoForge.Events.Editor
 
             return true;
         }
+
+        public BusInfo[] GetAllBuses()
+        {
+            var eventService = ServiceLocator.Get<IEventService>();
+            var eventBuses = eventService.GetAllBuses();
+            var eventBusesinfo = new BusInfo[eventBuses.Length];
+
+            for (int i = 0; i < eventBusesinfo.Length; i++)
+            {
+                var bus = eventBuses[i];
+                eventBusesinfo[i] = new BusInfo
+                {
+                    EventType = bus.GetType().GetGenericArguments()[0],
+                    ListenersType = bus.GetListenersType()
+                };
+            }
+
+            return eventBusesinfo;
+        }
+    }
+
+    public class BusInfo
+    {
+        public Type EventType;
+        public Type[] ListenersType;
     }
 }
