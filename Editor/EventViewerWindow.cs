@@ -1,15 +1,11 @@
-using Codice.CM.Common.Update.Partial;
-using RossoForge.Events.Bus;
-using RossoForge.Events.Service;
+﻿using RossoForge.Events.Service;
 using RossoForge.Services.Locator;
-using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 namespace RossoForge.Events.Editor
 {
-    public class EventViewerWindow: EditorWindow
+    public class EventViewerWindow : EditorWindow
     {
         private Vector2 _scrollPos;
 
@@ -28,15 +24,10 @@ namespace RossoForge.Events.Editor
             if (!CheckEventService())
                 return;
 
-            UnityEngine.Debug.LogWarning("TEST");
-
             _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
 
-            var eventBuses = GetAllBuses();
-            //foreach (var busInfo in _eventService.GetAllBuses())
-            //{
-            //    DrawBus(busInfo);
-            //}
+            DrawGridHeader();
+            DrawGrid();
 
             EditorGUILayout.EndScrollView();
         }
@@ -63,7 +54,7 @@ namespace RossoForge.Events.Editor
             return true;
         }
 
-        public BusInfo[] GetAllBuses()
+        private BusInfo[] GetAllBuses()
         {
             var eventService = ServiceLocator.Get<IEventService>();
             var eventBuses = eventService.GetAllBuses();
@@ -81,11 +72,48 @@ namespace RossoForge.Events.Editor
 
             return eventBusesinfo;
         }
-    }
 
-    public class BusInfo
-    {
-        public Type EventType;
-        public Type[] ListenersType;
+        private void DrawGridHeader()
+        {
+            EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
+            GUILayout.Label("Event", GUILayout.Width(200));
+            GUILayout.Label("Listeners", GUILayout.Width(100));
+            GUILayout.Label("Dispatches", GUILayout.Width(100));
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawGrid()
+        {
+            var busesInfo = GetAllBuses();
+            foreach (var info in busesInfo)
+            {
+                DrawGridRow(info);
+            }
+        }
+
+        private void DrawGridRow(BusInfo info)
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label(info.EventType.Name, GUILayout.Width(200));
+            GUILayout.Label(info.ListenerCount.ToString(), GUILayout.Width(100));
+            //GUILayout.Label(info.DispatchCount.ToString(), GUILayout.Width(100));
+            GUILayout.Label("XX", GUILayout.Width(100));
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawBus(BusInfo info)
+        {
+            EditorGUILayout.BeginVertical("box");
+
+            EditorGUILayout.LabelField("Event Type", info.EventType.Name, EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Listeners", info.ListenerCount.ToString());
+
+            foreach (var listener in info.ListenersType)
+            {
+                EditorGUILayout.LabelField("→ " + listener.Name);
+            }
+
+            EditorGUILayout.EndVertical();
+        }
     }
 }
