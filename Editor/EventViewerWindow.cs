@@ -66,7 +66,8 @@ namespace RossoForge.Events.Editor
                 eventBusesinfo[i] = new BusInfo
                 {
                     EventType = bus.GetType().GetGenericArguments()[0],
-                    ListenersType = bus.GetListenersType()
+                    ListenersType = bus.GetListenersType(),
+                    Calls = bus.Calls
                 };
             }
 
@@ -78,7 +79,7 @@ namespace RossoForge.Events.Editor
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
             GUILayout.Label("Event", GUILayout.Width(200));
             GUILayout.Label("Listeners", GUILayout.Width(100));
-            GUILayout.Label("Dispatches", GUILayout.Width(100));
+            GUILayout.Label("Calls", GUILayout.Width(100));
             EditorGUILayout.EndHorizontal();
         }
 
@@ -96,8 +97,7 @@ namespace RossoForge.Events.Editor
             EditorGUILayout.BeginHorizontal();
             GUILayout.Label(info.EventType.Name, GUILayout.Width(200));
             GUILayout.Label(info.ListenerCount.ToString(), GUILayout.Width(100));
-            //GUILayout.Label(info.DispatchCount.ToString(), GUILayout.Width(100));
-            GUILayout.Label("XX", GUILayout.Width(100));
+            GUILayout.Label(info.Calls.ToString(), GUILayout.Width(100));
             EditorGUILayout.EndHorizontal();
         }
 

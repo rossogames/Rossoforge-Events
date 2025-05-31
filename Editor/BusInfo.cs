@@ -6,6 +6,7 @@ namespace RossoForge.Events.Editor
     {
         public Type EventType;
         public Type[] ListenersType;
+        public int Calls;
 
         public int ListenerCount => ListenersType?.Length ?? 0;
     }
