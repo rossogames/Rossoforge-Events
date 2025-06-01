@@ -1,6 +1,7 @@
 ﻿using RossoForge.Events.Service;
 using RossoForge.Services.Locator;
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace RossoForge.Events.Editor
     {
         private Vector2 _scrollPos;
         private string _searchValue = "";
+        private HashSet<Type> _expandedTypes = new();
 
         [MenuItem("RossoForge/Events/Viewer")]
         public static void ShowWindow() 
@@ -60,9 +62,9 @@ namespace RossoForge.Events.Editor
         private void DrawGridHeader()
         {
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
-            GUILayout.Label("Event", GUILayout.Width(200));
-            GUILayout.Label("Listeners", GUILayout.Width(100));
-            GUILayout.Label("Calls", GUILayout.Width(100));
+            EditorGUILayout.LabelField("Event", GUILayout.Width(200));
+            EditorGUILayout.LabelField("Listeners", GUILayout.Width(100));
+            EditorGUILayout.LabelField("Calls", GUILayout.Width(100));
             EditorGUILayout.EndHorizontal();
         }
 
@@ -92,12 +94,21 @@ namespace RossoForge.Events.Editor
         private void DrawGridRow(BusInfo info)
         {
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Label(info.EventType.Name, GUILayout.Width(200));
-            GUILayout.Label(info.ListenerCount.ToString(), GUILayout.Width(100));
-            GUILayout.Label(info.Calls.ToString(), GUILayout.Width(100));
+
+            bool expanded = _expandedTypes.Contains(info.EventType);
+            if (GUILayout.Toggle(expanded, "", "foldout", GUILayout.Width(15)))
+                _expandedTypes.Add(info.EventType);
+            else
+                _expandedTypes.Remove(info.EventType);
+
+            EditorGUILayout.LabelField(info.EventType.Name, GUILayout.Width(185));
+            EditorGUILayout.LabelField(info.ListenerCount.ToString(), GUILayout.Width(100));
+            EditorGUILayout.LabelField(info.Calls.ToString(), GUILayout.Width(100));
+
             EditorGUILayout.EndHorizontal();
 
-            DrawBus(info);
+            if (expanded)
+                DrawBus(info);
         }
 
         private void DrawBus(BusInfo info)
