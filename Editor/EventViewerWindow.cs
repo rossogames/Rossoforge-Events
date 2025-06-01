@@ -91,7 +91,7 @@ namespace RossoForge.Events.Editor
             }
         }
 
-        private void DrawGridRow(BusInfo info)
+        private void DrawGridRow(BusEditorInfo info)
         {
             EditorGUILayout.BeginHorizontal();
 
@@ -111,7 +111,7 @@ namespace RossoForge.Events.Editor
                 DrawBus(info);
         }
 
-        private void DrawBus(BusInfo info)
+        private void DrawBus(BusEditorInfo info)
         {
             EditorGUILayout.BeginVertical("box");
 
@@ -123,22 +123,16 @@ namespace RossoForge.Events.Editor
             EditorGUILayout.EndVertical();
         }
 
-        private BusInfo[] GetAllBuses()
+        private BusEditorInfo[] GetAllBuses()
         {
             var eventService = ServiceLocator.Get<IEventService>();
             var eventBuses = eventService.GetAllBuses();
-            var eventBusesinfo = new BusInfo[eventBuses.Length];
+            var eventBusesinfo = new BusEditorInfo[eventBuses.Length];
 
             for (int i = 0; i < eventBusesinfo.Length; i++)
             {
                 var bus = eventBuses[i];
-                eventBusesinfo[i] = new BusInfo
-                {
-                    EventBus = bus,
-                    Calls = bus.Calls,
-                    EventType = bus.GetType().GetGenericArguments()[0],
-                    ListenersType = bus.GetListenersType(),
-                };
+                eventBusesinfo[i] = bus.GetBusEditorInfo();
             }
 
             return eventBusesinfo;

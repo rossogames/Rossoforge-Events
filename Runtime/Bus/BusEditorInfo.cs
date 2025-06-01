@@ -1,9 +1,9 @@
 using RossoForge.Events.Bus;
 using System;
 
-namespace RossoForge.Events.Editor
+namespace RossoForge.Events
 {
-    public class BusInfo
+    public class BusEditorInfo
     {
         public IEventBus EventBus;
         public int Calls;

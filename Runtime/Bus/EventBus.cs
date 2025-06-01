@@ -11,14 +11,24 @@ namespace RossoForge.Events.Bus
         private readonly object _lock = new();
 
 #if UNITY_EDITOR
-        private Type[] typesForViewer;
-        public int Calls { get; private set; } = 0;
+        private BusEditorInfo _busEditorInfo;
+        
+        public EventBus()
+        {
+            _busEditorInfo = new BusEditorInfo
+            {
+                EventBus = this,
+                EventType = typeof(T),
+                ListenersType = new Type[0],
+            };
+        }
 #endif
+
         public void Raise(T value)
         {
 #if UNITY_EDITOR
             Debug.Log($"Event Raised: {typeof(T).Name}");
-            Calls++;
+            _busEditorInfo.Calls++;
 #endif
 
             if (eventListeners.Count == 0)
@@ -39,7 +49,7 @@ namespace RossoForge.Events.Bus
             {
                 eventListeners.Add(listener);
 #if UNITY_EDITOR
-                RefreshTypesForViewer();
+                RefreshBusEditorInfo();
 #endif
             }
         }
@@ -50,7 +60,7 @@ namespace RossoForge.Events.Bus
             {
                 eventListeners.Remove(listener);
 #if UNITY_EDITOR
-                RefreshTypesForViewer();
+                RefreshBusEditorInfo();
 #endif
             }
         }
@@ -63,35 +73,33 @@ namespace RossoForge.Events.Bus
                     eventListeners.Add(listener);
 
 #if UNITY_EDITOR
-                RefreshTypesForViewer();
+                RefreshBusEditorInfo();
 #endif
             }
         }
 
 #if UNITY_EDITOR
+        public BusEditorInfo GetBusEditorInfo()
+        {
+            return _busEditorInfo;
+        }
         public void CheckListeners()
         {
             foreach (var listener in eventListeners)
                 Debug.LogWarning($"The listener {listener.GetType().Name} must be removed from the event bus {typeof(T)}");
         }
 
-        public Type[] GetListenersType()
+        private void RefreshBusEditorInfo()
         {
-            return typesForViewer;
-        }
-
-        private void RefreshTypesForViewer()
-        {
-            typesForViewer = new Type[eventListeners.Count];
-
             List<IEventListener<T>> listeners = null;
             lock (_lock)
             {
                 listeners = eventListeners.ToList();  // clone to avoid error when unregist listener
             }
 
-            for (int i = 0; i < listeners.Count; i++)
-                typesForViewer[i] = listeners[i].GetType();
+            _busEditorInfo.EventBus = this;
+            _busEditorInfo.EventType = typeof(T);
+            _busEditorInfo.ListenersType = listeners.Select(l => l.GetType()).ToArray();
         }
 #endif
     }
