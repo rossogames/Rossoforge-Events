@@ -10,6 +10,7 @@ namespace RossoForge.Events
 
         public Type EventType;
         public Type[] ListenersType;
+        public object EventInstance;
 
         public int ListenerCount => ListenersType?.Length ?? 0;
     }

@@ -2,6 +2,7 @@
 using RossoForge.Services.Locator;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace RossoForge.Events.Editor
         private HashSet<Type> _expandedTypes = new();
 
         [MenuItem("RossoForge/Events/Viewer")]
-        public static void ShowWindow() 
+        public static void ShowWindow()
         {
             var window = GetWindow<EventViewerWindow>("RossoForge - Event Viewer");
             window.Show();
@@ -59,15 +60,6 @@ namespace RossoForge.Events.Editor
             return true;
         }
 
-        private void DrawGridHeader()
-        {
-            EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
-            EditorGUILayout.LabelField("Event", GUILayout.Width(200));
-            EditorGUILayout.LabelField("Listeners", GUILayout.Width(100));
-            EditorGUILayout.LabelField("Calls", GUILayout.Width(100));
-            EditorGUILayout.EndHorizontal();
-        }
-
         private void DrawSearch()
         {
             EditorGUILayout.BeginHorizontal();
@@ -77,6 +69,16 @@ namespace RossoForge.Events.Editor
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        }
+
+        private void DrawGridHeader()
+        {
+            EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
+            EditorGUILayout.LabelField("Event", GUILayout.Width(200));
+            EditorGUILayout.LabelField("|Listeners", GUILayout.Width(100));
+            EditorGUILayout.LabelField("|Calls", GUILayout.Width(100));
+            EditorGUILayout.LabelField("|Invoke");
+            EditorGUILayout.EndHorizontal();
         }
 
         private void DrawGrid()
@@ -104,6 +106,12 @@ namespace RossoForge.Events.Editor
             EditorGUILayout.LabelField(info.EventType.Name, GUILayout.Width(185));
             EditorGUILayout.LabelField(info.ListenerCount.ToString(), GUILayout.Width(100));
             EditorGUILayout.LabelField(info.Calls.ToString(), GUILayout.Width(100));
+            if (GUILayout.Button("Invoke", GUILayout.Width(80)))
+            {
+                info.EventBus.Raise(info.EventInstance);
+            }
+
+            DrawObjectFields(info.EventType, info.EventInstance);
 
             EditorGUILayout.EndHorizontal();
 
@@ -136,6 +144,63 @@ namespace RossoForge.Events.Editor
             }
 
             return eventBusesinfo;
+        }
+
+        void DrawObjectFields(Type type, object instance)
+        {
+            if (instance == null)
+            {
+                EditorGUILayout.LabelField("Null object");
+                return;
+            }
+
+            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var field in fields)
+            {
+                Type fieldType = field.FieldType;
+                object fieldValue = field.GetValue(instance);
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(field.Name, GUILayout.Width(150));
+
+                object newValue = DrawFieldForType(fieldType, fieldValue);
+                if (newValue != fieldValue)
+                {
+                    field.SetValue(instance, newValue);
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+        }
+
+        object DrawFieldForType(Type type, object value)
+        {
+            if (type == typeof(int))
+                return EditorGUILayout.IntField((int)(value ?? 0));
+            if (type == typeof(float))
+                return EditorGUILayout.FloatField((float)(value ?? 0f));
+            if (type == typeof(double))
+                return EditorGUILayout.DoubleField((double)(value ?? 0f));
+            if (type == typeof(string))
+                return EditorGUILayout.TextField((string)(value ?? ""));
+            if (type == typeof(bool))
+                return EditorGUILayout.Toggle((bool)(value ?? false));
+            if (type.IsEnum)
+                return EditorGUILayout.EnumPopup((Enum)(value ?? Activator.CreateInstance(type)));
+
+            // Para clases custom, dibujar sus campos recursivamente
+            if (type.IsClass)
+            {
+                EditorGUILayout.LabelField(type.Name);
+                EditorGUI.indentLevel++;
+                DrawObjectFields(type, value);
+                EditorGUI.indentLevel--;
+                return value;
+            }
+
+            // Tipo no soportado
+            EditorGUILayout.LabelField($"No drawer for {type.Name}");
+            return value;
         }
     }
 }

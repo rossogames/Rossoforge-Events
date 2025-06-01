@@ -20,6 +20,7 @@ namespace RossoForge.Events.Bus
                 EventBus = this,
                 EventType = typeof(T),
                 ListenersType = new Type[0],
+                EventInstance = Activator.CreateInstance<T>(),
             };
         }
 #endif
@@ -82,6 +83,10 @@ namespace RossoForge.Events.Bus
         public BusEditorInfo GetBusEditorInfo()
         {
             return _busEditorInfo;
+        }
+        public void Raise(object instance)
+        {
+            Raise((T)instance);
         }
         public void CheckListeners()
         {
