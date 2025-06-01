@@ -1,5 +1,6 @@
 ﻿using RossoForge.Events.Service;
 using RossoForge.Services.Locator;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,9 +9,10 @@ namespace RossoForge.Events.Editor
     public class EventViewerWindow : EditorWindow
     {
         private Vector2 _scrollPos;
+        private string _searchValue = "";
 
         [MenuItem("RossoForge/Events/Viewer")]
-        public static void ShowWindow()
+        public static void ShowWindow() 
         {
             var window = GetWindow<EventViewerWindow>("RossoForge - Event Viewer");
             window.Show();
@@ -26,6 +28,7 @@ namespace RossoForge.Events.Editor
 
             _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
 
+            DrawSearch();
             DrawGridHeader();
             DrawGrid();
 
@@ -54,26 +57,6 @@ namespace RossoForge.Events.Editor
             return true;
         }
 
-        private BusInfo[] GetAllBuses()
-        {
-            var eventService = ServiceLocator.Get<IEventService>();
-            var eventBuses = eventService.GetAllBuses();
-            var eventBusesinfo = new BusInfo[eventBuses.Length];
-
-            for (int i = 0; i < eventBusesinfo.Length; i++)
-            {
-                var bus = eventBuses[i];
-                eventBusesinfo[i] = new BusInfo
-                {
-                    EventType = bus.GetType().GetGenericArguments()[0],
-                    ListenersType = bus.GetListenersType(),
-                    Calls = bus.Calls
-                };
-            }
-
-            return eventBusesinfo;
-        }
-
         private void DrawGridHeader()
         {
             EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
@@ -83,11 +66,25 @@ namespace RossoForge.Events.Editor
             EditorGUILayout.EndHorizontal();
         }
 
+        private void DrawSearch()
+        {
+            EditorGUILayout.BeginHorizontal();
+
+            EditorGUILayout.LabelField("Search Event: ", GUILayout.Width(100));
+            _searchValue = EditorGUILayout.TextField(_searchValue);
+
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        }
+
         private void DrawGrid()
         {
             var busesInfo = GetAllBuses();
             foreach (var info in busesInfo)
             {
+                if (!string.IsNullOrWhiteSpace(_searchValue) && !info.EventType.Name.ContainsInvariantCultureIgnoreCase(_searchValue))
+                    continue;
+
                 DrawGridRow(info);
             }
         }
@@ -99,14 +96,13 @@ namespace RossoForge.Events.Editor
             GUILayout.Label(info.ListenerCount.ToString(), GUILayout.Width(100));
             GUILayout.Label(info.Calls.ToString(), GUILayout.Width(100));
             EditorGUILayout.EndHorizontal();
+
+            DrawBus(info);
         }
 
         private void DrawBus(BusInfo info)
         {
             EditorGUILayout.BeginVertical("box");
-
-            EditorGUILayout.LabelField("Event Type", info.EventType.Name, EditorStyles.boldLabel);
-            EditorGUILayout.LabelField("Listeners", info.ListenerCount.ToString());
 
             foreach (var listener in info.ListenersType)
             {
@@ -114,6 +110,27 @@ namespace RossoForge.Events.Editor
             }
 
             EditorGUILayout.EndVertical();
+        }
+
+        private BusInfo[] GetAllBuses()
+        {
+            var eventService = ServiceLocator.Get<IEventService>();
+            var eventBuses = eventService.GetAllBuses();
+            var eventBusesinfo = new BusInfo[eventBuses.Length];
+
+            for (int i = 0; i < eventBusesinfo.Length; i++)
+            {
+                var bus = eventBuses[i];
+                eventBusesinfo[i] = new BusInfo
+                {
+                    EventBus = bus,
+                    Calls = bus.Calls,
+                    EventType = bus.GetType().GetGenericArguments()[0],
+                    ListenersType = bus.GetListenersType(),
+                };
+            }
+
+            return eventBusesinfo;
         }
     }
 }
