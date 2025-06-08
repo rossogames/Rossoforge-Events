@@ -1,3 +1,4 @@
+using RossoForge.Core.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace RossoForge.Events.Bus
 
 #if UNITY_EDITOR
         private BusEditorInfo _busEditorInfo;
-        
+
         public EventBus()
         {
             _busEditorInfo = new BusEditorInfo
@@ -80,7 +81,7 @@ namespace RossoForge.Events.Bus
         }
 
 #if UNITY_EDITOR
-        public BusEditorInfo GetBusEditorInfo()
+        public IBusEditorInfo GetBusEditorInfo()
         {
             return _busEditorInfo;
         }
@@ -99,7 +100,7 @@ namespace RossoForge.Events.Bus
             List<IEventListener<T>> listeners = null;
             lock (_lock)
             {
-                listeners = eventListeners.ToList();  // clone to avoid error when unregist listener
+                listeners = eventListeners.ToList();
             }
 
             _busEditorInfo.EventBus = this;

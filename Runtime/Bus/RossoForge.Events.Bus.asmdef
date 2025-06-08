@@ -1,7 +1,9 @@
 {
     "name": "RossoForge.Events.Bus",
     "rootNamespace": "RossoForge.Events.Bus",
-    "references": [],
+    "references": [
+        "RossoForge.Core"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

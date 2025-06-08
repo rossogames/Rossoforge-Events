@@ -1,16 +1,16 @@
-using RossoForge.Events.Bus;
+using RossoForge.Core.Events;
 using System;
 
 namespace RossoForge.Events
 {
-    public class BusEditorInfo
+    public class BusEditorInfo: IBusEditorInfo
     {
-        public IEventBus EventBus;
-        public int Calls;
+        public IEventBus EventBus { get; set; }
+        public int Calls { get; set; }
 
-        public Type EventType;
-        public Type[] ListenersType;
-        public object EventInstance;
+        public Type EventType { get; set; }
+        public Type[] ListenersType { get; set; }
+        public object EventInstance { get; set; }
 
         public int ListenerCount => ListenersType?.Length ?? 0;
     }

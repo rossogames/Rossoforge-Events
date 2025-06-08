@@ -1,5 +1,5 @@
-﻿using RossoForge.Events.Service;
-using RossoForge.Services.Locator;
+﻿using RossoForge.Core.Events;
+using RossoForge.Services;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -91,7 +91,7 @@ namespace RossoForge.Events.Editor
             }
         }
 
-        private void DrawGridRow(BusEditorInfo info)
+        private void DrawGridRow(IBusEditorInfo info)
         {
             EditorGUILayout.BeginHorizontal();
 
@@ -110,7 +110,7 @@ namespace RossoForge.Events.Editor
                 DrawBus(info);
         }
 
-        private void DrawBus(BusEditorInfo info)
+        private void DrawBus(IBusEditorInfo info)
         {
             EditorGUILayout.BeginVertical("box");
 
@@ -122,11 +122,11 @@ namespace RossoForge.Events.Editor
             EditorGUILayout.EndVertical();
         }
 
-        private BusEditorInfo[] GetAllBuses()
+        private IBusEditorInfo[] GetAllBuses()
         {
             var eventService = ServiceLocator.Get<IEventService>();
             var eventBuses = eventService.GetAllBuses();
-            var eventBusesinfo = new BusEditorInfo[eventBuses.Length];
+            var eventBusesinfo = new IBusEditorInfo[eventBuses.Length];
 
             for (int i = 0; i < eventBusesinfo.Length; i++)
             {

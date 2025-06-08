@@ -2,8 +2,8 @@
     "name": "RossoForge.Events.Editor",
     "rootNamespace": "RossoForge.Events.Editor",
     "references": [
+        "RossoForge.Core",
         "RossoForge.Services",
-        "RossoForge.Services.Locator",
         "RossoForge.Events.Service",
         "RossoForge.Events.Bus"
     ],
