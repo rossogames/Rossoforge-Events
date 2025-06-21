@@ -1,6 +1,6 @@
 {
   "name": "com.rossogames.rossoforge-events",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "displayName": "RossoForge-Events",
   "description": "Decoupled event system based on generic interfaces and buses",
   "unity": "2025.0",
