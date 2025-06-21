@@ -1,6 +1,5 @@
-using RossoForge.Events.Bus;
-using RossoForge.Events.Service;
-using RossoForge.Services.Locator;
+using RossoForge.Core.Events;
+using RossoForge.Services;
 using UnityEngine;
 using UnityEngine.UI;
 

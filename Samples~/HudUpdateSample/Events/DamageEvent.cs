@@ -1,4 +1,4 @@
-using RossoForge.Events.Bus;
+using RossoForge.Core.Events;
 
 namespace RossoForge.Events.Samples.HpHud
 {
