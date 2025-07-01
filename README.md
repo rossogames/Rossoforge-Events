@@ -2,15 +2,15 @@
 
 <table>
   <tr>
-    <td><img src="https://github.com/rossogames/Rossoforge-Events/blob/master/logo.png?raw=true" alt="RossoForge" width="64"/></td>
-    <td><h2>RossoForge - Events</h2></td>
+    <td><img src="https://github.com/rossogames/Rossoforge-Events/blob/master/logo.png?raw=true" alt="Rossoforge" width="64"/></td>
+    <td><h2>Rossoforge - Events</h2></td>
   </tr>
 </table>
 
-**RossoForge - Events** is a lightweight and decoupled event system for Unity, built around generic interfaces and event buses. It allows different parts of your application to communicate through events without tight coupling or dependencies between components.
+**Rossoforge-Events** is a lightweight and decoupled event system for Unity, built around generic interfaces and event buses. It allows different parts of your application to communicate through events without tight coupling or dependencies between components.
 
 The following dependencies must be installed
-* https://github.com/rossogames/Rossoforge-Services.git
+* [Rossoforge-Services](https://github.com/rossogames/Rossoforge-Services.git)
 
 Watch the tutorial on [Pending]
 #
@@ -65,7 +65,7 @@ Watch the tutorial on [Pending]
     }
 ```
 #
-This package is part of the **RossoForge** suite, designed to streamline and enhance Unity development workflows.
+This package is part of the **Rossoforge** suite, designed to streamline and enhance Unity development workflows.
 
 Developed by Agustin Rosso
 https://www.linkedin.com/in/rossoagustin/
