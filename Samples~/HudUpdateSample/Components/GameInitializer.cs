@@ -1,9 +1,9 @@
-using RossoForge.Core.Events;
-using RossoForge.Events.Service;
-using RossoForge.Services;
+using Rossoforge.Core.Events;
+using Rossoforge.Events.Service;
+using Rossoforge.Services;
 using UnityEngine;
 
-namespace RossoForge.Events.Samples.HpHud
+namespace Rossoforge.Events.Samples.HpHud
 {
     public class GameInitializer : MonoBehaviour
     {

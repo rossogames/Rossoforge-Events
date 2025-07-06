@@ -1,6 +1,6 @@
-using RossoForge.Core.Events;
+using Rossoforge.Core.Events;
 
-namespace RossoForge.Events.Samples.HpHud
+namespace Rossoforge.Events.Samples.HpHud
 {
     public readonly struct DamageEvent : IEvent
     {
