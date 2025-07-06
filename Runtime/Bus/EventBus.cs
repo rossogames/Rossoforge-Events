@@ -1,10 +1,10 @@
-using RossoForge.Core.Events;
+using Rossoforge.Core.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace RossoForge.Events.Bus
+namespace Rossoforge.Events.Bus
 {
     public class EventBus<T> : IEventBus where T : IEvent
     {

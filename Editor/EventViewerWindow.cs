@@ -1,11 +1,11 @@
-﻿using RossoForge.Core.Events;
-using RossoForge.Services;
+﻿using Rossoforge.Core.Events;
+using Rossoforge.Services;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace RossoForge.Events.Editor
+namespace Rossoforge.Events.Editor
 {
     public class EventViewerWindow : EditorWindow
     {

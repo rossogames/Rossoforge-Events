@@ -1,9 +1,9 @@
 {
-    "name": "RossoForge.Events.Service",
-    "rootNamespace": "RossoForge.Events.Service",
+    "name": "Rossoforge.Events.Service",
+    "rootNamespace": "Rossoforge.Events.Service",
     "references": [
-        "RossoForge.Core",
-        "RossoForge.Events.Bus"
+        "Rossoforge.Core",
+        "Rossoforge.Events.Bus"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

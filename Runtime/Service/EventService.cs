@@ -1,11 +1,11 @@
-using RossoForge.Core.Events;
-using RossoForge.Events.Bus;
+using Rossoforge.Core.Events;
+using Rossoforge.Events.Bus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RossoForge.Events.Service
+namespace Rossoforge.Events.Service
 {
     public class EventService : IEventService, IDisposable
     {
