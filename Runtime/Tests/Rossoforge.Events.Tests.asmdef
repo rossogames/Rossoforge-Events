@@ -1,0 +1,20 @@
+{
+    "name": "Rossoforge.Events.Tests",
+    "rootNamespace": "Rossoforge.Events.Tests",
+    "references": [
+        "GUID:b4e9218a795d1c74fb2124a2989ee4aa",
+        "GUID:86f099845053e6043925a58d7746b1f4",
+        "GUID:b3cbb51ff65434d449548fe48c6c6d5e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
