@@ -1,9 +1,8 @@
 {
-    "name": "Rossoforge.Events.Service",
-    "rootNamespace": "Rossoforge.Events.Service",
+    "name": "Rossoforge.Events",
+    "rootNamespace": "Rossoforge.Events",
     "references": [
-        "Rossoforge.Core",
-        "Rossoforge.Events.Bus"
+        "Rossoforge.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

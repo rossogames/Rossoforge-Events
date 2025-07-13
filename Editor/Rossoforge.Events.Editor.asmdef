@@ -4,8 +4,7 @@
     "references": [
         "Rossoforge.Core",
         "Rossoforge.Services",
-        "Rossoforge.Events.Service",
-        "Rossoforge.Events.Bus"
+        "Rossoforge.Events"
     ],
     "includePlatforms": [
         "Editor"
