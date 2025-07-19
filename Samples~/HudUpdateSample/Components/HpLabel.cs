@@ -1,9 +1,9 @@
-using RossoForge.Core.Events;
-using RossoForge.Services;
+using Rossoforge.Core.Events;
+using Rossoforge.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RossoForge.Events.Samples.HpHud
+namespace Rossoforge.Events.Samples.HpHud
 {
     [RequireComponent(typeof(Text))]
     public class HpLabel : MonoBehaviour, IEventListener<DamageEvent>

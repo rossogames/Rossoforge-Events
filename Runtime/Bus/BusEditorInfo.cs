@@ -1,9 +1,9 @@
-using RossoForge.Core.Events;
+using Rossoforge.Core.Events;
 using System;
 
-namespace RossoForge.Events
+namespace Rossoforge.Events
 {
-    public class BusEditorInfo: IBusEditorInfo
+    public class BusEditorInfo : IBusEditorInfo
     {
         public IEventBus EventBus { get; set; }
         public int Calls { get; set; }

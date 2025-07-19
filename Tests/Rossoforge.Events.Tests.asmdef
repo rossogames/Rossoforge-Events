@@ -1,11 +1,13 @@
 {
-    "name": "RossoForge.Events.Service",
-    "rootNamespace": "RossoForge.Events.Service",
+    "name": "Rossoforge.Events.Tests",
+    "rootNamespace": "Rossoforge.Events.Tests",
     "references": [
-        "RossoForge.Core",
-        "RossoForge.Events.Bus"
+        "Rossoforge.Events",
+        "Rossoforge.Core"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
