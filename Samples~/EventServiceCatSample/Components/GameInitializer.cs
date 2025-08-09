@@ -3,7 +3,7 @@ using Rossoforge.Events.Service;
 using Rossoforge.Services;
 using UnityEngine;
 
-namespace Rossoforge.Events.Samples.HpHud
+namespace Rossoforge.Events.CatFoodSample.Components
 {
     public class GameInitializer : MonoBehaviour
     {
