@@ -1,6 +1,6 @@
 {
   "name": "com.rossogames.rossoforge-events",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "displayName": "Rossoforge-Events",
   "description": "Decoupled event system based on generic interfaces and buses",
   "unity": "2025.0",
@@ -16,9 +16,9 @@
   ],
   "samples": [
     {
-      "displayName": "Event service sample",
+      "displayName": "EventServiceCatSample",
       "description": "Example of how to define an event, implement a listener, register it, and raise the event using the EventService.",
-      "path": "Samples~/HudUpdateSample"
+      "path": "Samples~/EventServiceCatSample"
     }
   ]
 }
