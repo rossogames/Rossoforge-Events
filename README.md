@@ -13,7 +13,7 @@ The following dependencies must be installed
 * [[Rossoforge-core]](https://github.com/rossogames/Rossoforge-Core.git)
 * [Rossoforge-Services](https://github.com/rossogames/Rossoforge-Services.git) (Opcional)
 
-Watch the tutorial on [Pending]
+Watch the tutorial on https://www.youtube.com/watch?v=YG_RjQMdM94
 #
 ```csharp
 // Setup (requires Rossoforge-Services)
