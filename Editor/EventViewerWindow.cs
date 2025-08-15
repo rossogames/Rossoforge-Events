@@ -13,7 +13,7 @@ namespace Rossoforge.Events.Editor
         private string _searchValue = "";
         private HashSet<Type> _expandedTypes = new();
 
-        [MenuItem("RossoForge/Events/Viewer")]
+        [MenuItem("Rossoforge/Events/Viewer")]
         public static void ShowWindow()
         {
             var window = GetWindow<EventViewerWindow>("RossoForge - Event Viewer");
