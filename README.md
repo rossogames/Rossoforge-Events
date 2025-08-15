@@ -13,57 +13,62 @@ The following dependencies must be installed
 * [[Rossoforge-core]](https://github.com/rossogames/Rossoforge-Core.git)
 * [Rossoforge-Services](https://github.com/rossogames/Rossoforge-Services.git) (Opcional)
 
-Watch the tutorial on [Pending]
+Watch the tutorial on https://www.youtube.com/watch?v=YG_RjQMdM94
 #
 ```csharp
-    // 1. Define your event
-    public readonly struct PlayerDamagedEvent : IEvent
-    {
-        public readonly int Damage;
+// Setup (requires Rossoforge-Services)
+ServiceLocator.SetLocator(new DefaultServiceLocator());
+ServiceLocator.Register<IEventService>(new EventService());
+ServiceLocator.Initialize();
 
-        public PlayerDamagedEvent(int damage)
-        {
-            Damage = damage;
-        }
+// 1. Define your event
+public readonly struct PlayerDamagedEvent : IEvent
+{
+    public readonly int Damage;
+
+    public PlayerDamagedEvent(int damage)
+    {
+        Damage = damage;
+    }
+}
+
+// 2. Register the listener
+public class DamageLogger : MonoBehaviour, IEventListener<PlayerDamagedEvent>
+{
+    private IEventService _eventService;
+
+    void Start()
+    {
+        _eventService = ServiceLocator.Get<IEventService>();
+        _eventService.RegisterListener(this);
+    }
+    private void OnDestroy()
+    {
+        _eventService.UnregisterListener(this);
     }
 
-    // 2. Register the listener
-    public class DamageLogger : MonoBehaviour, IEventListener<PlayerDamagedEvent>
+    public void OnEventInvoked(PlayerDamagedEvent eventArg)
     {
-        private IEventService _eventService;
+        Debug.Log($"Player took {eventArg.Damage} damage.");
+    }
+}
 
-        void Start()
-        {
-            _eventService = ServiceLocator.Get<IEventService>();
-            _eventService.RegisterListener(this);
-        }
-        private void OnDestroy()
-        {
-            _eventService.UnregisterListener(this);
-        }
+// 3. Raise the event
+public class GameLogic : MonoBehaviour
+{
+    private IEventService _eventService;
 
-        public void OnEventInvoked(PlayerDamagedEvent eventArg)
-        {
-            Debug.Log($"Player took {eventArg.Damage} damage.");
-        }
+    void Start()
+    {
+        _eventService = ServiceLocator.Get<IEventService>();
     }
 
-    // 3. Raise the event
-    public class GameLogic : MonoBehaviour
+    public void DoSomething()
     {
-        private IEventService _eventService;
-
-        void Start()
-        {
-            _eventService = ServiceLocator.Get<IEventService>();
-        }
-
-        public void DoSomething()
-        {
-            // Raise event
-            _eventService.Raise(new PlayerDamagedEvent(10));
-        }
+        // Raise event
+        _eventService.Raise(new PlayerDamagedEvent(10));
     }
+}
 ```
 #
 This package is part of the **Rossoforge** suite, designed to streamline and enhance Unity development workflows.
