@@ -9,11 +9,15 @@
 
 **Rossoforge-Events** is a lightweight and decoupled event system for Unity, built around generic interfaces and event buses. It allows different parts of your application to communicate through events without tight coupling or dependencies between components.
 
-The following dependencies must be installed
-* [[Rossoforge-core]](https://github.com/rossogames/Rossoforge-Core.git)
+#
+**Version:** Unity 6 or higher
+
+**Tutorial:** [https://www.youtube.com/watch?v=YG_RjQMdM94] (Spanish)
+
+**Dependencies:**
+* [Rossoforge-core](https://github.com/rossogames/Rossoforge-Core.git)
 * [Rossoforge-Services](https://github.com/rossogames/Rossoforge-Services.git) (Opcional)
 
-Watch the tutorial on https://www.youtube.com/watch?v=YG_RjQMdM94
 #
 ```csharp
 // Setup (requires Rossoforge-Services)
