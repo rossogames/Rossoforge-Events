@@ -1,6 +1,6 @@
 {
   "name": "com.rossogames.rossoforge-events",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "displayName": "Rossoforge-Events",
   "description": "Decoupled event system based on generic interfaces and buses",
   "unity": "2025.0",
