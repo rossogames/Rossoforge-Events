@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa8a881a91937254b9ffba1df249ac33, type: 3}
   m_Name: RossoLoggerSettings
   m_EditorClassIdentifier: Rossoforge.Utils::Rossoforge.Utils.Logger.LoggerSettings
-  logLevel: 2
+  LogLevel: 4
