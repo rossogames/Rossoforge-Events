@@ -2,7 +2,8 @@
     "name": "Rossoforge.Events",
     "rootNamespace": "Rossoforge.Events",
     "references": [
-        "Rossoforge.Core"
+        "Rossoforge.Core",
+        "Rossoforge.Utils"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

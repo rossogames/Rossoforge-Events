@@ -16,6 +16,7 @@
 
 **Dependencies:**
 * [Rossoforge-core](https://github.com/rossogames/Rossoforge-Core.git)
+* [Rossoforge-Utils](https://github.com/rossogames/Rossoforge-Utils.git)
 * [Rossoforge-Services](https://github.com/rossogames/Rossoforge-Services.git) (Opcional)
 
 #

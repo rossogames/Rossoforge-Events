@@ -1,8 +1,8 @@
 using Rossoforge.Core.Events;
+using Rossoforge.Utils.Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Rossoforge.Events.Bus
 {
@@ -28,8 +28,8 @@ namespace Rossoforge.Events.Bus
 
         public void Raise(T value)
         {
+            RossoLogger.Verbose($"Event Raised: {typeof(T).Name}");
 #if UNITY_EDITOR
-            Debug.Log($"Event Raised: {typeof(T).Name}");
             _busEditorInfo.Calls++;
 #endif
 
@@ -92,7 +92,7 @@ namespace Rossoforge.Events.Bus
         public void CheckListeners()
         {
             foreach (var listener in eventListeners)
-                Debug.LogWarning($"The listener {listener.GetType().Name} must be removed from the event bus {typeof(T)}");
+                RossoLogger.Warning($"The listener {listener.GetType().Name} must be removed from the event bus {typeof(T)}");
         }
 
         private void RefreshBusEditorInfo()
