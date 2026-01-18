@@ -3,7 +3,6 @@ using Rossoforge.Utils.Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Rossoforge.Events.Bus
 {
@@ -29,8 +28,8 @@ namespace Rossoforge.Events.Bus
 
         public void Raise(T value)
         {
-#if UNITY_EDITOR
             RossoLogger.Verbose($"Event Raised: {typeof(T).Name}");
+#if UNITY_EDITOR
             _busEditorInfo.Calls++;
 #endif
 
