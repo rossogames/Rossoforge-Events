@@ -17,13 +17,14 @@
 **Dependencies:**
 * [Rossoforge-core](https://github.com/rossogames/Rossoforge-Core.git)
 * [Rossoforge-Utils](https://github.com/rossogames/Rossoforge-Utils.git)
-* [Rossoforge-Services](https://github.com/rossogames/Rossoforge-Services.git) (Opcional)
+* [Rossoforge-Services](https://github.com/rossogames/Rossoforge-Services.git)
 
 #
 ```csharp
 // Setup (requires Rossoforge-Services)
 ServiceLocator.SetLocator(new DefaultServiceLocator());
-ServiceLocator.Register<IEventService>(new EventService());
+var eventService = new EventService();
+ServiceLocator.Register<IEventService>(eventService);
 ServiceLocator.Initialize();
 
 // 1. Define your event

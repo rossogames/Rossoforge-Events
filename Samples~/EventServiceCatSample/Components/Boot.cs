@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Rossoforge.Events.CatFoodSample.Components
 {
-    public class GameInitializer : MonoBehaviour
+    public class Boot : MonoBehaviour
     {
         private void Awake()
         {
@@ -14,6 +14,7 @@ namespace Rossoforge.Events.CatFoodSample.Components
             var eventService = new EventService();
 
             ServiceLocator.Register<IEventService>(eventService);
+
             ServiceLocator.Initialize();
         }
 
