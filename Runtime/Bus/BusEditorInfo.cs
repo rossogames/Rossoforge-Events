@@ -1,7 +1,6 @@
-using Rossoforge.Events.Bus;
 using System;
 
-namespace Rossoforge.Events
+namespace Rossoforge.Events.Bus
 {
     public class BusEditorInfo : IBusEditorInfo
     {
