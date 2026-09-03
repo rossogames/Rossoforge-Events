@@ -16,9 +16,9 @@
   ],
   "samples": [
     {
-      "displayName": "EventServiceCatSample",
+      "displayName": "Cat Food Demo",
       "description": "Example of how to define an event, implement a listener, register it, and raise the event using the EventService.",
-      "path": "Samples~/EventServiceCatSample"
+      "path": "Samples~/CatFoodDemo"
     }
   ]
 }
