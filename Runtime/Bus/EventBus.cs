@@ -1,4 +1,3 @@
-using Rossoforge.Core.Events;
 using Rossoforge.Utils.Logger;
 using System;
 using System.Collections.Generic;

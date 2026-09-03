@@ -1,4 +1,5 @@
-﻿using Rossoforge.Core.Events;
+﻿using Rossoforge.Events.Bus;
+using Rossoforge.Events.Service;
 using Rossoforge.Services;
 using System;
 using System.Collections.Generic;

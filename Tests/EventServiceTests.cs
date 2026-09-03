@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using Rossoforge.Core.Events;
+using Rossoforge.Events.Bus;
 using Rossoforge.Events.Service;
 using System.Collections.Generic;
 
