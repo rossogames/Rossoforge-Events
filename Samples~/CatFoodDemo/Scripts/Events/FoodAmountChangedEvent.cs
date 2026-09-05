@@ -1,6 +1,6 @@
-using Rossoforge.Core.Events;
+using Rossoforge.Events.Bus;
 
-namespace Rossoforge.Events.CatFoodSample.Events
+namespace Rossoforge.Events.Samples.CatFood
 {
     public readonly struct FoodAmountChangedEvent : IEvent
     {

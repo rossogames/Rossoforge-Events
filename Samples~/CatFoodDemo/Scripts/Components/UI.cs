@@ -1,10 +1,10 @@
-using Rossoforge.Core.Events;
-using Rossoforge.Events.CatFoodSample.Events;
-using Rossoforge.Services;
+using Rossoforge.Events.Bus;
+using Rossoforge.Events.Service;
+using Rossoforge.Services.Locator;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Rossoforge.Events.CatFoodSample.Components
+namespace Rossoforge.Events.Samples.CatFood
 {
     public class UI : MonoBehaviour,
         IEventListener<CanOpenedEvent>,

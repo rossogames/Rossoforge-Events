@@ -1,9 +1,8 @@
-using Rossoforge.Core.Events;
-using Rossoforge.Events.CatFoodSample.Events;
-using Rossoforge.Services;
+using Rossoforge.Events.Service;
+using Rossoforge.Services.Locator;
 using UnityEngine;
 
-namespace Rossoforge.Events.CatFoodSample.Components
+namespace Rossoforge.Events.Samples.CatFood
 {
     public class FoodSystem : MonoBehaviour
     {

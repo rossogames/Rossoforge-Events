@@ -1,28 +1,27 @@
-using Rossoforge.Core.Events;
-using Rossoforge.Events.CatFoodSample.Events;
-using Rossoforge.Services;
+using Rossoforge.Events.Bus;
+using Rossoforge.Events.Service;
+using Rossoforge.Services.Locator;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Rossoforge.Events.CatFoodSample.Components
+namespace Rossoforge.Events.Samples.CatFood
 {
-    public class Cat : MonoBehaviour,
+    public class FoodCan : MonoBehaviour,
         IEventListener<CanOpenedEvent>,
         IEventListener<FoodAmountChangedEvent>
     {
         private IEventService _eventService;
 
         [SerializeField]
-        private Image _imageCat;
-
-        [SerializeField]
-        private Material _grayMaterial;
+        private Image _imageFoodCan;
 
         private void Start()
         {
             _eventService = ServiceLocator.Get<IEventService>();
             _eventService.RegisterListener<CanOpenedEvent>(this);
             _eventService.RegisterListener<FoodAmountChangedEvent>(this);
+
+            _imageFoodCan.enabled = false;
         }
         private void OnDestroy()
         {
@@ -32,13 +31,12 @@ namespace Rossoforge.Events.CatFoodSample.Components
 
         public void OnEventInvoked(CanOpenedEvent eventArg)
         {
-            _imageCat.material = null;
+            _imageFoodCan.enabled = true;
         }
 
         public void OnEventInvoked(FoodAmountChangedEvent eventArg)
         {
-            if (eventArg.RemainingAmount <= 0)
-                _imageCat.material = _grayMaterial;
+            _imageFoodCan.enabled = eventArg.RemainingAmount > 0;
         }
     }
 }
