@@ -1,6 +1,5 @@
-using Rossoforge.Events.CatFoodSample.Events;
 using Rossoforge.Events.Service;
-using Rossoforge.Services;
+using Rossoforge.Services.Locator;
 using UnityEngine;
 
 namespace Rossoforge.Events.Samples.CatFood

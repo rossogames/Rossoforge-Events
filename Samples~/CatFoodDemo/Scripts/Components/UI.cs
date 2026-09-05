@@ -1,7 +1,6 @@
 using Rossoforge.Events.Bus;
-using Rossoforge.Events.CatFoodSample.Events;
 using Rossoforge.Events.Service;
-using Rossoforge.Services;
+using Rossoforge.Services.Locator;
 using UnityEngine;
 using UnityEngine.UI;
 
